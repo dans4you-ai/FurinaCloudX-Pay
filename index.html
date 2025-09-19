@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FurinaCloudX</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://h.uguu.se/GRMBuKTd.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            margin-top: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        header::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(to right, #4a4a4a, #999, #4a4a4a);
+            margin: 15px auto 0;
+            border-radius: 3px;
+        }
+        
+        .logo {
+            width: 120px;
+            height: 120px;
+            border-radius: 15px;
+            margin: 0 auto 15px;
+            display: block;
+            border: 3px solid #555;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            object-fit: cover;
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+        
+        .payment-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .payment-btn {
+            display: flex;
+            align-items: center;
+            background: #f5f5f5;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            padding: 15px;
+            color: #333;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .payment-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .payment-btn:hover::before {
+            left: 100%;
+        }
+        
+        .payment-btn:hover {
+            background: #e9e9e9;
+            border-color: #999;
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .payment-btn.active {
+            background: #e0e0e0;
+            border-color: #999;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .payment-logo {
+            width: 35px;
+            height: 35px;
+            border-radius: 8px;
+            margin-right: 12px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .payment-btn:hover .payment-logo {
+            transform: scale(1.1);
+        }
+        
+        .payment-details {
+            background: #f9f9f9;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            display: none;
+            animation: fadeIn 0.5s ease;
+            color: #333;
+            border: 1px solid #ddd;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+        }
+        
+        .payment-details.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .payment-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #444;
+            margin: 20px 0;
+            word-break: break-all;
+            padding: 12px;
+            background: #fff;
+            border-radius: 8px;
+            border: 1px solid #eee;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .copy-btn {
+            background: #4a4a4a;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .copy-btn:hover {
+            background: #333;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .copy-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .qris-image {
+            max-width: 250px;
+            border-radius: 12px;
+            margin: 15px auto;
+            border: 2px solid #ddd;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .qris-image:hover {
+            transform: scale(1.02);
+        }
+        
+        .instructions {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f5f5f5;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #444;
+            border: 1px solid #ddd;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .instructions h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+        
+        .instructions h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, #4a4a4a, #999);
+            border-radius: 2px;
+        }
+        
+        .instructions p {
+            margin-bottom: 10px;
+            padding-left: 15px;
+            position: relative;
+        }
+        
+        .instructions p::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #4a4a4a;
+            font-weight: bold;
+        }
+        
+        footer {
+            margin-top: 30px;
+            text-align: center;
+            color: #ddd;
+            font-size: 0.9rem;
+            padding: 15px;
+            width: 100%;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            background: #4a4a4a;
+            color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transform: translateX(100%);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .payment-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .payment-number {
+                font-size: 1.2rem;
+            }
+            
+            .container {
+                padding: 20px 15px;
+            }
+            
+            .payment-btn {
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <img src="https://n.uguu.se/oYpWlmla.jpg" alt="FurinaCloudX Logo" class="logo">
+            <h1>FurinaCloudX</h1>
+            <p class="subtitle">Choose the Payment Method</p>
+        </header>
+        
+        <div class="payment-options">
+            <div class="payment-btn" data-method="dana">
+                <img src="https://files.catbox.moe/p7tbdp.jpg" alt="Dana" class="payment-logo">
+                <span>Dana</span>
+            </div>
+            
+            <div class="payment-btn" data-method="gopay">
+                <img src="https://files.catbox.moe/tfhch7.jpg" alt="Gopay" class="payment-logo">
+                <span>Gopay</span>
+            </div>
+            
+            <div class="payment-btn" data-method="shopeepay">
+                <img src="https://files.catbox.moe/rvpu8s.jpg" alt="Shopeepay" class="payment-logo">
+                <span>Shopeepay</span>
+            </div>
+            
+            <div class="payment-btn" data-method="seabank">
+                <img src="https://files.catbox.moe/nd5sy8.jpg" alt="SeaBank" class="payment-logo">
+                <span>SeaBank</span>
+            </div>
+            
+            <div class="payment-btn" data-method="qris">
+                <img src="https://files.catbox.moe/vusjes.jpg" alt="QRIS" class="payment-logo">
+                <span>QRIS</span>
+            </div>
+        </div>
+        
+        <div id="payment-details" class="payment-details">
+            <!-- Detail pembayaran akan ditampilkan di sini -->
+        </div>
+        
+        <div class="instructions">
+            <h3>Petunjuk Pembayaran</h3>
+            <p>Pilih metode pembayaran yang diinginkan</p>
+            <p>Salin nomor atau scan QR code</p>
+            <p>Lakukan pembayaran sesuai nominal</p>
+            <p>Simpan bukti pembayaran untuk konfirmasi</p>
+        </div>
+    </div>
+    
+    <footer>
+        <p>&copy; 2023 FurinaCloudX - All Rights Reserved</p>
+    </footer>
+
+    <div class="notification" id="notification">Nomor berhasil disalin!</div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const paymentButtons = document.querySelectorAll('.payment-btn');
+            const paymentDetails = document.getElementById('payment-details');
+            const notification = document.getElementById('notification');
+            
+            // Data pembayaran
+            const paymentData = {
+                dana: {
+                    number: '0881011892305',
+                    logo: 'https://files.catbox.moe/p7tbdp.jpg',
+                    name: 'Dana'
+                },
+                gopay: {
+                    number: '083872735426',
+                    logo: 'https://files.catbox.moe/tfhch7.jpg',
+                    name: 'Gopay'
+                },
+                shopeepay: {
+                    number: '087735073038',
+                    logo: 'https://files.catbox.moe/rvpu8s.jpg',
+                    name: 'Shopeepay'
+                },
+                seabank: {
+                    number: '901019568318',
+                    logo: 'https://files.catbox.moe/nd5sy8.jpg',
+                    name: 'SeaBank'
+                },
+                qris: {
+                    number: '',
+                    logo: 'https://files.catbox.moe/vusjes.jpg',
+                    name: 'QRIS',
+                    qr: 'https://files.catbox.moe/vusjes.jpg'
+                }
+            };
+            
+            // Event listener untuk setiap tombol pembayaran
+            paymentButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const method = this.getAttribute('data-method');
+                    const data = paymentData[method];
+                    
+                    // Hapus kelas active dari semua tombol
+                    paymentButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Tambahkan kelas active ke tombol yang diklik
+                    this.classList.add('active');
+                    
+                    // Tampilkan detail pembayaran
+                    if (method === 'qris') {
+                        paymentDetails.innerHTML = `
+                            <img src="${data.logo}" alt="${data.name}" class="payment-logo">
+                            <h2>${data.name}</h2>
+                            <p>Scan QR code berikut untuk melakukan pembayaran</p>
+                            <img src="${data.qr}" alt="QR Code" class="qris-image">
+                        `;
+                    } else {
+                        paymentDetails.innerHTML = `
+                            <img src="${data.logo}" alt="${data.name}" class="payment-logo">
+                            <h2>${data.name}</h2>
+                            <p>Nomor ${data.name}:</p>
+                            <div class="payment-number">${data.number}</div>
+                            <button class="copy-btn" data-number="${data.number}">
+                                <i class="fas fa-copy"></i> Salin Nomor
+                            </button>
+                        `;
+                    }
+                    
+                    // Tampilkan detail pembayaran
+                    paymentDetails.classList.add('active');
+                    
+                    // Tambahkan event listener untuk tombol salin
+                    const copyBtn = paymentDetails.querySelector('.copy-btn');
+                    if (copyBtn) {
+                        copyBtn.addEventListener('click', function() {
+                            const number = this.getAttribute('data-number');
+                            navigator.clipboard.writeText(number).then(() => {
+                                showNotification('Nomor berhasil disalin!');
+                            });
+                        });
+                    }
+                });
+            });
+            
+            // Fungsi untuk menampilkan notifikasi
+            function showNotification(message) {
+                notification.textContent = message;
+                notification.classList.add('show');
+                
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 2000);
+            }
+        });
+    </script>
+</body>
+</html>
