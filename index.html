@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FurinaCloudX - Transparent Payment</title>
+    <title>FurinaCloudX - Payment Gateway</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
         body {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2072&q=80') no-repeat center center fixed;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://h.uguu.se/GRMBuKTd.jpg') no-repeat center center fixed;
             background-size: cover;
             color: #fff;
             min-height: 100vh;
@@ -26,7 +26,7 @@
         }
         
         .container {
-            max-width: 800px;
+            max-width: 900px;
             width: 100%;
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
@@ -58,8 +58,8 @@
             color: #fff;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
             margin-bottom: 10px;
-            font-weight: 300;
-            letter-spacing: 2px;
+            font-weight: 600;
+            letter-spacing: 1px;
         }
         
         .subtitle {
@@ -69,11 +69,35 @@
             font-weight: 300;
         }
         
-        .payment-options {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
+        .payment-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
             margin-bottom: 30px;
+        }
+        
+        .payment-options {
+            flex: 1;
+            min-width: 300px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(5px);
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        
+        .payment-options h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #fff;
+            font-weight: 500;
+            font-size: 1.5rem;
+        }
+        
+        .payment-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
         }
         
         .payment-btn {
@@ -84,18 +108,19 @@
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(5px);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 15px;
+            border-radius: 12px;
             padding: 15px 10px;
             color: #fff;
             cursor: pointer;
             transition: all 0.3s ease;
             text-align: center;
+            min-height: 100px;
         }
         
         .payment-btn:hover {
             background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         }
         
         .payment-btn.active {
@@ -114,25 +139,44 @@
             padding: 5px;
         }
         
+        .payment-details-container {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+        }
+        
         .payment-details {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(10px);
             border-radius: 15px;
             padding: 25px;
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 300px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            flex-grow: 1;
+        }
+        
+        .payment-details.hidden {
             display: none;
-            animation: fadeIn 0.5s ease;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            margin-bottom: 20px;
         }
         
         .payment-details.active {
-            display: block;
+            display: flex;
+            animation: fadeIn 0.5s ease;
         }
         
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .payment-info {
+            width: 100%;
         }
         
         .payment-number {
@@ -179,20 +223,20 @@
         .instructions {
             margin-top: 30px;
             padding: 20px;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(5px);
             border-radius: 15px;
             font-size: 0.95rem;
             line-height: 1.6;
             color: rgba(255, 255, 255, 0.9);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.15);
         }
         
         .instructions h3 {
             color: #fff;
             margin-bottom: 15px;
             font-size: 1.3rem;
-            font-weight: 400;
+            font-weight: 500;
             text-align: center;
         }
         
@@ -236,17 +280,30 @@
             opacity: 1;
         }
         
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 2.2rem;
+        .placeholder-text {
+            color: rgba(255, 255, 255, 0.5);
+            font-style: italic;
+            text-align: center;
+            margin: auto;
+        }
+        
+        @media (max-width: 768px) {
+            .payment-section {
+                flex-direction: column;
             }
             
-            .payment-options {
+            .payment-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
             
-            .payment-number {
-                font-size: 1.2rem;
+            h1 {
+                font-size: 2.2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .payment-grid {
+                grid-template-columns: 1fr;
             }
             
             .container {
@@ -255,11 +312,16 @@
             
             .payment-btn {
                 padding: 12px 8px;
+                min-height: 80px;
             }
             
             .payment-logo {
                 width: 35px;
                 height: 35px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
             }
         }
         
@@ -318,44 +380,55 @@
             <p class="subtitle">Choose Payment Method</p>
         </header>
         
-        <div class="payment-options">
-            <div class="payment-btn" data-method="dana">
-                <img src="https://files.catbox.moe/p7tbdp.jpg" alt="Dana" class="payment-logo">
-                <span>Dana</span>
+        <div class="payment-section">
+            <div class="payment-options">
+                <h2>Available Methods</h2>
+                <div class="payment-grid">
+                    <div class="payment-btn" data-method="dana">
+                        <img src="https://files.catbox.moe/p7tbdp.jpg" alt="Dana" class="payment-logo">
+                        <span>Dana</span>
+                    </div>
+                    
+                    <div class="payment-btn" data-method="gopay">
+                        <img src="https://files.catbox.moe/tfhch7.jpg" alt="Gopay" class="payment-logo">
+                        <span>Gopay</span>
+                    </div>
+                    
+                    <div class="payment-btn" data-method="shopeepay">
+                        <img src="https://files.catbox.moe/rvpu8s.jpg" alt="Shopeepay" class="payment-logo">
+                        <span>Shopeepay</span>
+                    </div>
+                    
+                    <div class="payment-btn" data-method="seabank">
+                        <img src="https://files.catbox.moe/nd5sy8.jpg" alt="SeaBank" class="payment-logo">
+                        <span>SeaBank</span>
+                    </div>
+                    
+                    <div class="payment-btn" data-method="qris">
+                        <img src="https://files.catbox.moe/vusjes.jpg" alt="QRIS" class="payment-logo">
+                        <span>QRIS</span>
+                    </div>
+                </div>
             </div>
             
-            <div class="payment-btn" data-method="gopay">
-                <img src="https://files.catbox.moe/tfhch7.jpg" alt="Gopay" class="payment-logo">
-                <span>Gopay</span>
+            <div class="payment-details-container">
+                <div class="payment-details hidden" id="payment-details">
+                    <!-- Detail pembayaran akan ditampilkan di sini -->
+                </div>
+                <div class="payment-details active" id="placeholder">
+                    <p class="placeholder-text">Select a payment method to view details</p>
+                </div>
             </div>
-            
-            <div class="payment-btn" data-method="shopeepay">
-                <img src="https://files.catbox.moe/rvpu8s.jpg" alt="Shopeepay" class="payment-logo">
-                <span>Shopeepay</span>
-            </div>
-            
-            <div class="payment-btn" data-method="seabank">
-                <img src="https://files.catbox.moe/nd5sy8.jpg" alt="SeaBank" class="payment-logo">
-                <span>SeaBank</span>
-            </div>
-            
-            <div class="payment-btn" data-method="qris">
-                <img src="https://files.catbox.moe/vusjes.jpg" alt="QRIS" class="payment-logo">
-                <span>QRIS</span>
-            </div>
-        </div>
-        
-        <div id="payment-details" class="payment-details">
-            <!-- Detail pembayaran akan ditampilkan di sini -->
         </div>
         
         <div class="instructions">
             <h3>Payment Instructions</h3>
             <ol>
-                <li>Select your preferred payment method</li>
+                <li>Select your preferred payment method from the options</li>
                 <li>Copy the account number or scan the QR code</li>
                 <li>Make payment with the correct amount</li>
                 <li>Save your payment proof for confirmation</li>
+                <li>Wait for payment verification (usually within 1-2 hours)</li>
             </ol>
         </div>
     </div>
@@ -370,6 +443,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             const paymentButtons = document.querySelectorAll('.payment-btn');
             const paymentDetails = document.getElementById('payment-details');
+            const placeholder = document.getElementById('placeholder');
             const notification = document.getElementById('notification');
             
             // Data pembayaran
@@ -414,27 +488,36 @@
                     // Tambahkan kelas active ke tombol yang diklik
                     this.classList.add('active');
                     
+                    // Sembunyikan placeholder
+                    placeholder.classList.remove('active');
+                    placeholder.classList.add('hidden');
+                    
                     // Tampilkan detail pembayaran
                     if (method === 'qris') {
                         paymentDetails.innerHTML = `
-                            <img src="${data.logo}" alt="${data.name}" class="payment-logo">
-                            <h2>${data.name}</h2>
-                            <p>Scan the QR code below to make payment</p>
-                            <img src="${data.qr}" alt="QR Code" class="qris-image">
+                            <div class="payment-info">
+                                <img src="${data.logo}" alt="${data.name}" class="payment-logo">
+                                <h2>${data.name}</h2>
+                                <p>Scan the QR code below to make payment</p>
+                                <img src="${data.qr}" alt="QR Code" class="qris-image">
+                            </div>
                         `;
                     } else {
                         paymentDetails.innerHTML = `
-                            <img src="${data.logo}" alt="${data.name}" class="payment-logo">
-                            <h2>${data.name}</h2>
-                            <p>${data.name} Number:</p>
-                            <div class="payment-number">${data.number}</div>
-                            <button class="copy-btn" data-number="${data.number}">
-                                <i class="fas fa-copy"></i> Copy Number
-                            </button>
+                            <div class="payment-info">
+                                <img src="${data.logo}" alt="${data.name}" class="payment-logo">
+                                <h2>${data.name}</h2>
+                                <p>${data.name} Number:</p>
+                                <div class="payment-number">${data.number}</div>
+                                <button class="copy-btn" data-number="${data.number}">
+                                    <i class="fas fa-copy"></i> Copy Number
+                                </button>
+                            </div>
                         `;
                     }
                     
                     // Tampilkan detail pembayaran
+                    paymentDetails.classList.remove('hidden');
                     paymentDetails.classList.add('active');
                     
                     // Tambahkan event listener untuk tombol salin
