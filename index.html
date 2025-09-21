@@ -14,7 +14,7 @@
         }
         
         body {
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
             color: #e6e6e6;
             min-height: 100vh;
             display: flex;
@@ -25,17 +25,70 @@
             overflow-x: hidden;
         }
         
-        body::before {
-            content: "";
+        .math-background {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: 
-                radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.05) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(255, 255, 255, 0.05) 0%, transparent 20%);
+            opacity: 0.03;
             pointer-events: none;
+            z-index: 0;
+            font-size: 24px;
+            color: white;
+            overflow: hidden;
+        }
+        
+        .math-formula {
+            position: absolute;
+            white-space: nowrap;
+            animation: float 20s linear infinite;
+        }
+        
+        .math-formula:nth-child(1) {
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+            animation-duration: 25s;
+        }
+        
+        .math-formula:nth-child(2) {
+            top: 30%;
+            right: 5%;
+            animation-delay: -5s;
+            animation-duration: 20s;
+            animation-direction: reverse;
+        }
+        
+        .math-formula:nth-child(3) {
+            top: 50%;
+            left: 8%;
+            animation-delay: -10s;
+            animation-duration: 30s;
+        }
+        
+        .math-formula:nth-child(4) {
+            top: 70%;
+            right: 10%;
+            animation-delay: -15s;
+            animation-duration: 22s;
+            animation-direction: reverse;
+        }
+        
+        .math-formula:nth-child(5) {
+            top: 85%;
+            left: 15%;
+            animation-delay: -8s;
+            animation-duration: 28s;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(100vw);
+            }
         }
         
         .container {
@@ -312,6 +365,14 @@
     </style>
 </head>
 <body>
+    <div class="math-background">
+        <div class="math-formula">\[ \frac { 1 } { 2 } \times \frac { 3 } { 4 } = \frac { 5 } { 6 }\]</div>
+        <div class="math-formula">\[ \frac { 1 } { 2 } \times \frac { 3 } { 4 } = \frac { 5 } { 6 }\]</div>
+        <div class="math-formula">\[ \frac { 1 } { 2 } \times \frac { 3 } { 4 } = \frac { 5 } { 6 }\]</div>
+        <div class="math-formula">\[ \frac { 1 } { 2 } \times \frac { 3 } { 4 } = \frac { 5 } { 6 }\]</div>
+        <div class="math-formula">\[ \frac { 1 } { 2 } \times \frac { 3 } { 4 } = \frac { 5 } { 6 }\]</div>
+    </div>
+    
     <div class="encryption-effect"></div>
     
     <div class="container">
